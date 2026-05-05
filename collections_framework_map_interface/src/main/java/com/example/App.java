@@ -1,9 +1,9 @@
 package com.example;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class App {
     public static void main(String[] args) {
@@ -38,25 +38,11 @@ public class App {
     	
     	// Creacion del mapa a partir del listado de argumentos
     	
-    	Map<String, Integer> m = new HashMap<>();
-    	
-    	// Para agregar entradas al mapa m recorreremos la lista listadoDeArgumentos
-    	// utilizando una sentencia for mejorada
-    	Integer frecuenciaOcurrencia = null;
-     	
-    	for (String nombre : listadoDeArgumentos) {
-			
-    		// comprobar si el nombre, clave, ya se encuentra en el mapa m
-    		
-    		frecuenciaOcurrencia = m.get(nombre);
-    		
-    		m.put(nombre, frecuenciaOcurrencia == null ? 1 : ++frecuenciaOcurrencia);
-			
-		}
+    	Map<String, Long> m = listadoDeArgumentos.stream()
+    			.collect(Collectors.groupingBy(nombre -> nombre, 
+    					Collectors.counting()));    	
     	
     	System.out.println("Mapa resultante: " + m);
     	
-    	
-      
     }
 }
