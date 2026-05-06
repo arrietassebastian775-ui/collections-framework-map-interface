@@ -3,46 +3,70 @@ package com.example;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class App {
-    public static void main(String[] args) {
-    
-    	/* ¿Que es un Map Interface o un mapa simplemente?
-    	 * 
-    	 * Es una coleccion aunque no hereda de la interfaz collections, pero se puede tratar
-    	 * como tal utilizanado las collections viws (Vistas de colecciones), que veremos
-    	 * en breve.
-    	 * 
-    	 * Concretamente un mapa, es una coleccion, tambien denominado un objeto que relaciona
-    	 * claves con valores, lo que antiguamente se llamaba una estructura hash (clave (key)
-    	 * y valor (value)), donde las claves no pueden repetirse.
-    	 * 
-    	 * Los metodos de ordenamiento y de busqueda que son aplicables a las interfaces que 
-    	 * heredan de collection no son aplicables a la interface map, por ejemplo el metodo
-    	 * sort no se lo puede aplicar a un mapa.
-    	 *  
-    	 * En resumen una interface map, mapea (relaciona) claves con valor en un contenedor,
-    	 * que se puede crear de varias formas y recorrer de varias formas tambien. */
-    	
-    	/* A modo de ejemplo, vamos a crear una collecion (Map interface) que almacene
-    	 * frecuencia de repeticion/ocurrencia de un array de palabras que se reciben como
-    	 * parametro en el metodo main, cuando se lanza la aplicacion*/
-    	
-    	/* Primero comprobar si estamos recibiendo el array de nombres en la variableargs,
-    	 * cuando se lanza la aplicacion*/
-    	
-    	List<String> listadoDeArgumentos = Arrays.asList(args);
-    	
-    	listadoDeArgumentos.forEach(System.out::println);
-    	
-    	// Creacion del mapa a partir del listado de argumentos
-    	
-    	Map<String, Long> m = listadoDeArgumentos.stream()
-    			.collect(Collectors.groupingBy(nombre -> nombre, 
-    					Collectors.counting()));    	
-    	
-    	System.out.println("Mapa resultante: " + m);
-    	
-    }
+	public static void main(String[] args) {
+
+		/*
+		 * ¿Que es un Map Interface o un mapa simplemente?
+		 * 
+		 * Es una coleccion aunque no hereda de la interfaz collections, pero se puede
+		 * tratar como tal utilizanado las collections viws (Vistas de colecciones), que
+		 * veremos en breve.
+		 * 
+		 * Concretamente un mapa, es una coleccion, tambien denominado un objeto que
+		 * relaciona claves con valores, lo que antiguamente se llamaba una estructura
+		 * hash (clave (key) y valor (value)), donde las claves no pueden repetirse.
+		 * 
+		 * Los metodos de ordenamiento y de busqueda que son aplicables a las interfaces
+		 * que heredan de collection no son aplicables a la interface map, por ejemplo
+		 * el metodo sort no se lo puede aplicar a un mapa.
+		 * 
+		 * En resumen una interface map, mapea (relaciona) claves con valor en un
+		 * contenedor, que se puede crear de varias formas y recorrer de varias formas
+		 * tambien.
+		 */
+
+		/*
+		 * A modo de ejemplo, vamos a crear una collecion (Map interface) que almacene
+		 * frecuencia de repeticion/ocurrencia de un array de palabras que se reciben
+		 * como parametro en el metodo main, cuando se lanza la aplicacion
+		 */
+
+		/*
+		 * Primero comprobar si estamos recibiendo el array de nombres en la
+		 * variableargs, cuando se lanza la aplicacion
+		 */
+
+		List<String> listadoDeArgumentos = Arrays.asList(args);
+
+		listadoDeArgumentos.forEach(System.out::println);
+
+		// Creacion del mapa a partir del listado de argumentos
+
+		Map<String, Long> m = null;
+
+		/*
+		 * Variante #1 de creacion del mapa a partir de recorrer el listado de
+		 * argumentos utilizando operaciones de agregado (tuberias, metodos de la clase
+		 * stream, lambda, metodos por referencia, en fin, programacion funcional)
+		 */
+
+		m = listadoDeArgumentos.stream()
+		.collect(Collectors.groupingBy(Function.identity(),
+				Collectors.counting()));
+
+		System.out.println("Mapa resultante: " + m);
+		
+		/* Variante #2 (RECOMENDADA) */
+		
+		var m2 =listadoDeArgumentos.stream()
+				.collect(Collectors.groupingBy(nombre -> nombre,
+				Collectors.counting()));
+		
+		System.out.println(m2);
+
+	}
 }
