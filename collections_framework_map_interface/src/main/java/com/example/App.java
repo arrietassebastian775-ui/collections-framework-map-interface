@@ -3,7 +3,6 @@ package com.example;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +73,7 @@ public class App {
 		
 		// Creacion de listado de empleados
 		
-		List<Empleado> empleados = new ArrayList<>();
+		List<? extends Persona> listadoGenerico = null;
 		
 		Empleado emp1 = Empleado.builder()
 				.nombre("Jorge Francisco")
@@ -186,16 +185,51 @@ public class App {
 				.fechaAlta(LocalDate.of(1990, Month.SEPTEMBER, 22))
 				.build();
 		
-		empleados = Arrays.asList(emp1, emp2, emp3, emp4, emp5, emp6, emp7, emp8, emp9, emp10);
+		Estudiante estudiante1 = Estudiante.builder()
+				.nombre("Alex Eduardo")
+				.PrimerApellido("Piticita")
+				.SegundoApellido("Changoluisa")
+				.genero(Genero.HOMBRE)
+				.fechaNacimiento(LocalDate.of(1991, Month.MAY, 25))
+				.totalAsignaturas(10)
+				.facultad(Facultad.INGENIERIA)
+				.fechaAltaFacultad(LocalDate.of(2020, Month.JANUARY, 6))
+				.build();
+		
+		listadoGenerico = Arrays.asList
+				(emp1,
+				 emp2,
+				 emp3,
+				 emp4,
+				 emp5,
+				 emp6,
+				 emp7,
+				 emp8,
+				 emp9,
+				 emp10,
+				 estudiante1);
 		
 		//Crear una coleccion que agrupe empleados por genero
-		Map<Genero, List<Empleado>> empleadosPorGenero = empleados.stream()
-				.collect(Collectors.groupingBy(empleado -> empleado.getGenero(),
-						Collectors.toList()));
+//		Map<Genero, List<Empleado>> empleadosPorGenero = empleados.stream()
+//				.collect(Collectors.groupingBy(empleado -> empleado.getGenero(),
+//						Collectors.toList()));
+//		
+//		System.out.println("Empleados por genero: " + empleadosPorGenero);
 		
-		System.out.println("Empleados por genero: " + empleadosPorGenero);
+		
+		Map<Genero, List<Empleado>> empleadosPorGenero = listadoGenerico.stream()
+				.filter(obj -> obj instanceof Empleado)
+				.map(obj -> (Empleado) obj)
+				.collect(Collectors.groupingBy(Empleado::getGenero));
+
+
+
+				System.out.println("Empleados por Genero: " + empleadosPorGenero);
 		
 		
+
+		
+	
 		
 	}
 }
