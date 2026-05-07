@@ -3,9 +3,12 @@ package com.example;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -57,145 +60,65 @@ public class App {
 		 * stream, lambda, metodos por referencia, en fin, programacion funcional)
 		 */
 
-		m = listadoDeArgumentos.stream()
-		.collect(Collectors.groupingBy(Function.identity(),
-				Collectors.counting()));
+		m = listadoDeArgumentos.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
 		System.out.println("Mapa resultante: " + m);
-		
+
 		/* Variante #2 (RECOMENDADA) */
-		
-		var m2 =listadoDeArgumentos.stream()
-				.collect(Collectors.groupingBy(nombre -> nombre,
-				Collectors.counting()));
-		
+
+		var m2 = listadoDeArgumentos.stream().collect(Collectors.groupingBy(nombre -> nombre, Collectors.counting()));
+
 		System.out.println(m2);
-		
+
 		// Creacion de listado de empleados
-		
-		List<? super Persona> listadoGenerico = Arrays.asList();
-		
-		Empleado emp1 = Empleado.builder()
-				.nombre("Jorge Francisco")
-				.PrimerApellido("Alborch")
-				.SegundoApellido("Villar")
-				.genero(Genero.HOMBRE)
-				.fechaNacimiento(LocalDate.of(1974, Month.JUNE, 23))
-				.dpto(Dpto.INFORMATICA)
-				.salario(new BigDecimal(3500.50))
-				.fechaAlta(LocalDate.of(1990, Month.SEPTEMBER, 22))
-				.build();
-		
-		Empleado emp2 = Empleado.builder()
-				.nombre("Andres")
-				.PrimerApellido("Alonso")
-				.SegundoApellido("Pelaez")
-				.genero(Genero.HOMBRE)
-				.fechaNacimiento(LocalDate.of(1983, Month.SEPTEMBER, 23))
-				.dpto(Dpto.INFORMATICA)
-				.salario(new BigDecimal(3400.50))
-				.fechaAlta(LocalDate.of(1995, Month.SEPTEMBER, 22))
-				.build();
-		
-		Empleado emp3 = Empleado.builder()
-				.nombre("Jeronimo")
-				.PrimerApellido("Arenal")
-				.SegundoApellido("Gomez")
-				.genero(Genero.HOMBRE)
-				.fechaNacimiento(LocalDate.of(1965, Month.OCTOBER, 20))
-				.dpto(Dpto.CONTABILIDAD)
-				.salario(new BigDecimal(3600.50))
-				.fechaAlta(LocalDate.of(1977, Month.JANUARY, 4))
-				.build();
-		
-		Empleado emp4 = Empleado.builder()
-				.nombre("Carolina")
-				.PrimerApellido("Garzon")
-				.SegundoApellido("Becerra")
-				.genero(Genero.MUJER)
-				.fechaNacimiento(LocalDate.of(2001, Month.JUNE, 7))
-				.dpto(Dpto.INFORMATICA)
-				.salario(new BigDecimal(3700.50))
-				.fechaAlta(LocalDate.of(2020, Month.SEPTEMBER, 10))
-				.build();
-		
-		Empleado emp5 = Empleado.builder()
-				.nombre("Mariana")
-				.PrimerApellido("Garzon")
-				.SegundoApellido("Villar")
-				.genero(Genero.MUJER)
-				.fechaNacimiento(LocalDate.of(2000, Month.AUGUST, 4))
-				.dpto(Dpto.FINANZAS)
-				.salario(new BigDecimal(3300.50))
-				.fechaAlta(LocalDate.of(2022, Month.SEPTEMBER, 25))
-				.build();
-		
-		Empleado emp6 = Empleado.builder()
-				.nombre("Francisca")
-				.PrimerApellido("Alvarez")
-				.SegundoApellido("Gonzales")
-				.genero(Genero.MUJER)
-				.fechaNacimiento(LocalDate.of(1995, Month.DECEMBER, 10))
-				.dpto(Dpto.RRHH)
-				.salario(new BigDecimal(2500.50))
-				.fechaAlta(LocalDate.of(2010, Month.SEPTEMBER, 5))
-				.build();
-		
-		Empleado emp7 = Empleado.builder()
-				.nombre("Maricarmen")
-				.PrimerApellido("Becerra")
-				.SegundoApellido("Martinez")
-				.genero(Genero.MUJER)
-				.fechaNacimiento(LocalDate.of(2003, Month.FEBRUARY, 14))
-				.dpto(Dpto.FINANZAS)
-				.salario(new BigDecimal(2600.50))
-				.fechaAlta(LocalDate.of(2021, Month.SEPTEMBER, 8))
-				.build();
-		
-		Empleado emp8 = Empleado.builder()
-				.nombre("Eva")
-				.PrimerApellido("Cornide")
-				.SegundoApellido("Machado")
-				.genero(Genero.MUJER)
-				.fechaNacimiento(LocalDate.of(1990, Month.MAY, 18))
-				.dpto(Dpto.INFORMATICA)
-				.salario(new BigDecimal(3500.50))
-				.fechaAlta(LocalDate.of(2015, Month.SEPTEMBER, 22))
-				.build();
-		
-		Empleado emp9 = Empleado.builder()
-				.nombre("Alberto")
-				.PrimerApellido("Gonzales")
-				.SegundoApellido("Sanchez")
-				.genero(Genero.HOMBRE)
-				.fechaNacimiento(LocalDate.of(1990, Month.FEBRUARY, 14))
-				.dpto(Dpto.FINANZAS)
-				.salario(new BigDecimal(2600.50))
-				.fechaAlta(LocalDate.of(2000, Month.SEPTEMBER, 8))
-				.build();
-		
-		Empleado emp10 = Empleado.builder()
-				.nombre("Javier")
-				.PrimerApellido("Gonzales")
-				.SegundoApellido("Sanchez")
-				.genero(Genero.HOMBRE)
-				.fechaNacimiento(LocalDate.of(1995, Month.MAY, 20))
-				.dpto(Dpto.RRHH)
-				.salario(new BigDecimal(3500.50))
-				.fechaAlta(LocalDate.of(1990, Month.SEPTEMBER, 22))
-				.build();
-		
-		Estudiante estudiante1 = Estudiante.builder()
-				.nombre("Alex Eduardo")
-				.PrimerApellido("Piticita")
-				.SegundoApellido("Changoluisa")
-				.genero(Genero.HOMBRE)
-				.fechaNacimiento(LocalDate.of(1991, Month.MAY, 25))
-				.totalAsignaturas(10)
-				.facultad(Facultad.INGENIERIA)
-				.fechaAltaFacultad(LocalDate.of(2020, Month.JANUARY, 6))
-				.build();
-		
+
+		List<? super Persona> listadoGenerico = new ArrayList<>();
+
+		Empleado emp1 = Empleado.builder().nombre("Jorge Francisco").PrimerApellido("Alborch").SegundoApellido("Villar")
+				.genero(Genero.HOMBRE).fechaNacimiento(LocalDate.of(1974, Month.JUNE, 23)).dpto(Dpto.INFORMATICA)
+				.salario(new BigDecimal(3500.50)).fechaAlta(LocalDate.of(1990, Month.SEPTEMBER, 22)).build();
+
+		Empleado emp2 = Empleado.builder().nombre("Andres").PrimerApellido("Alonso").SegundoApellido("Pelaez")
+				.genero(Genero.HOMBRE).fechaNacimiento(LocalDate.of(1983, Month.SEPTEMBER, 23)).dpto(Dpto.INFORMATICA)
+				.salario(new BigDecimal(3400.50)).fechaAlta(LocalDate.of(1995, Month.SEPTEMBER, 22)).build();
+
+		Empleado emp3 = Empleado.builder().nombre("Jeronimo").PrimerApellido("Arenal").SegundoApellido("Gomez")
+				.genero(Genero.HOMBRE).fechaNacimiento(LocalDate.of(1965, Month.OCTOBER, 20)).dpto(Dpto.CONTABILIDAD)
+				.salario(new BigDecimal(3600.50)).fechaAlta(LocalDate.of(1977, Month.JANUARY, 4)).build();
+
+		Empleado emp4 = Empleado.builder().nombre("Carolina").PrimerApellido("Garzon").SegundoApellido("Becerra")
+				.genero(Genero.MUJER).fechaNacimiento(LocalDate.of(2001, Month.JUNE, 7)).dpto(Dpto.INFORMATICA)
+				.salario(new BigDecimal(3700.50)).fechaAlta(LocalDate.of(2020, Month.SEPTEMBER, 10)).build();
+
+		Empleado emp5 = Empleado.builder().nombre("Mariana").PrimerApellido("Garzon").SegundoApellido("Villar")
+				.genero(Genero.MUJER).fechaNacimiento(LocalDate.of(2001, Month.JUNE, 7)).dpto(Dpto.FINANZAS)
+				.salario(new BigDecimal(3300.50)).fechaAlta(LocalDate.of(2022, Month.SEPTEMBER, 25)).build();
+
+		Empleado emp6 = Empleado.builder().nombre("Mariana").PrimerApellido("Alvarez").SegundoApellido("Gonzales")
+				.genero(Genero.MUJER).fechaNacimiento(LocalDate.of(1995, Month.DECEMBER, 10)).dpto(Dpto.RRHH)
+				.salario(new BigDecimal(2500.50)).fechaAlta(LocalDate.of(2010, Month.SEPTEMBER, 5)).build();
+
+		Empleado emp7 = Empleado.builder().nombre("Mariana").PrimerApellido("Becerra").SegundoApellido("Martinez")
+				.genero(Genero.MUJER).fechaNacimiento(LocalDate.of(2003, Month.FEBRUARY, 14)).dpto(Dpto.FINANZAS)
+				.salario(new BigDecimal(2600.50)).fechaAlta(LocalDate.of(2021, Month.SEPTEMBER, 8)).build();
+
+		Empleado emp8 = Empleado.builder().nombre("Eva").PrimerApellido("Cornide").SegundoApellido("Machado")
+				.genero(Genero.MUJER).fechaNacimiento(LocalDate.of(1990, Month.MAY, 18)).dpto(Dpto.INFORMATICA)
+				.salario(new BigDecimal(3500.50)).fechaAlta(LocalDate.of(2015, Month.SEPTEMBER, 22)).build();
+
+		Empleado emp9 = Empleado.builder().nombre("Alberto").PrimerApellido("Gonzales").SegundoApellido("Sanchez")
+				.genero(Genero.HOMBRE).fechaNacimiento(LocalDate.of(1990, Month.FEBRUARY, 14)).dpto(Dpto.FINANZAS)
+				.salario(new BigDecimal(2600.50)).fechaAlta(LocalDate.of(2000, Month.SEPTEMBER, 8)).build();
+
+		Empleado emp10 = Empleado.builder().nombre("Javier").PrimerApellido("Gonzales").SegundoApellido("Sanchez")
+				.genero(Genero.HOMBRE).fechaNacimiento(LocalDate.of(1995, Month.MAY, 20)).dpto(Dpto.RRHH)
+				.salario(new BigDecimal(3500.50)).fechaAlta(LocalDate.of(1990, Month.SEPTEMBER, 22)).build();
+
+		Estudiante estudiante1 = Estudiante.builder().nombre("Alex Eduardo").PrimerApellido("Piticita")
+				.SegundoApellido("Changoluisa").genero(Genero.HOMBRE).fechaNacimiento(LocalDate.of(1991, Month.MAY, 25))
+				.totalAsignaturas(10).facultad(Facultad.INGENIERIA)
+				.fechaAltaFacultad(LocalDate.of(2020, Month.JANUARY, 6)).build();
+
 //		listadoGenerico = Arrays.asList
 //				(emp1,
 //				 emp2,
@@ -208,7 +131,7 @@ public class App {
 //				 emp9,
 //				 emp10,
 //				 estudiante1);
-		
+
 		listadoGenerico.add(emp1);
 		listadoGenerico.add(emp2);
 		listadoGenerico.add(emp3);
@@ -220,28 +143,62 @@ public class App {
 		listadoGenerico.add(emp9);
 		listadoGenerico.add(emp10);
 		listadoGenerico.add(estudiante1);
-		
-		//Crear una coleccion que agrupe empleados por genero
+
+		// Crear una coleccion que agrupe empleados por genero
 //		Map<Genero, List<Empleado>> empleadosPorGenero = empleados.stream()
 //				.collect(Collectors.groupingBy(empleado -> empleado.getGenero(),
 //						Collectors.toList()));
 //		
 //		System.out.println("Empleados por genero: " + empleadosPorGenero);
+
+		Map<Genero, List<Empleado>> empleadosPorGenero = listadoGenerico.stream().filter(obj -> obj instanceof Empleado)
+				.map(obj -> (Empleado) obj).collect(Collectors.groupingBy(Empleado::getGenero));
+
+		System.out.println("Empleados por Genero: " + empleadosPorGenero);
+
+		/* Obtener una coleccion que agrupe empleados por departamentos y genero */
+
+		Map<Dpto, Map<Genero, List<Empleado>>> empleadosPorDptoYGenero = listadoGenerico.stream()
+				.filter(obj -> obj instanceof Empleado).map(obj -> (Empleado) obj)
+				.collect(Collectors.groupingBy(Empleado::getDpto, Collectors.groupingBy(Empleado::getGenero)));
+
+		System.out.println("Empleados por Departamento y Genero: " + empleadosPorDptoYGenero);
+
+		/*
+		 * Obtener una coleccion que agrupe nombres de empleado por genero, sin que se
+		 * dupliquen los nombres
+		 */
+
+		Map<Genero, Set<String>> nombresPorGenero = listadoGenerico.stream().filter(obj -> obj instanceof Empleado)
+				.map(obj -> (Empleado) obj).collect(Collectors.groupingBy(Empleado::getGenero,
+						Collectors.mapping(Empleado::getNombre, Collectors.toSet())));
+
+		System.out.println("Nombres por genero: " + nombresPorGenero);
 		
+		/* Obtener una coleccion que agrupe nombres de empleados, separados por comas, por edad
+		 * del empleado */
 		
-		Map<Genero, List<Empleado>> empleadosPorGenero = listadoGenerico.stream()
+		Map<Long, String> nombrePorEdad = listadoGenerico.stream().filter(obj -> obj instanceof Empleado)
+				.map(obj -> (Empleado) obj)
+				.collect(Collectors.groupingBy(empleado -> 
+				ChronoUnit.YEARS.between(empleado.getFechaNacimiento(),
+						LocalDate.now()), Collectors.mapping(Empleado::getNombre,
+								Collectors.joining(","))));
+		
+		System.out.println("Nombres por Edad: " + nombrePorEdad);
+		
+		/* Obtener una coleccion que agrupe salario promedio por fecha de alta, solamente 
+		 * para los empleados del genero mujer */
+		
+		Map<LocalDate, Double> salarioPorAlta = listadoGenerico.stream()
 				.filter(obj -> obj instanceof Empleado)
 				.map(obj -> (Empleado) obj)
-				.collect(Collectors.groupingBy(Empleado::getGenero));
-
-
-
-				System.out.println("Empleados por Genero: " + empleadosPorGenero);
+				.filter(empleado -> empleado.getGenero().equals(Genero.MUJER))
+				.collect(Collectors.groupingBy(Empleado::getFechaAlta,
+						Collectors.averagingDouble(empleado -> empleado.getSalario().doubleValue())));
 		
+		System.out.println("Salario promedio de empleados MUJER: " + salarioPorAlta);
 		
-
-		
-	
 		
 	}
 }
